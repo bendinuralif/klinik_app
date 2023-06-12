@@ -1,19 +1,11 @@
 class Pegawai {
-  late int id;
-  late String nip;
-  late String nama;
-  late String tanggalLahir;
-  late String nomorTelepon;
-  late String email;
-  late String password;
+  int? id;
+  String namaPegawai;
 
-  Pegawai(Map pegawai) {
-    id = pegawai['id'];
-    nip = pegawai['nip'];
-    nama = pegawai['nama'];
-    tanggalLahir = pegawai['tanggalLahir'];
-    nomorTelepon = pegawai['nomorTelepon'];
-    email = pegawai['email'];
-    password = pegawai['password'];
-  }
+  Pegawai({this.id, required this.namaPegawai});
+
+  factory Pegawai.fromJson(Map<String, dynamic> json) =>
+      Pegawai(id: json["id"], namaPegawai: json["nama_pegawai"]);
+
+  Map<String, dynamic> toJson() => {"nama_poli": namaPegawai};
 }

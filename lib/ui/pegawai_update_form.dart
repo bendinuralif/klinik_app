@@ -3,19 +3,37 @@ import '../model/pegawai.dart';
 import '../service/pegawai_service.dart';
 import 'pegawai_detail.dart';
 
-class PegawaiForm extends StatefulWidget {
-  const PegawaiForm({Key? key}) : super(key: key);
-  _PegawaiFormState createState() => _PegawaiFormState();
+class PegawaiUpdateForm extends StatefulWidget {
+  final Pegawai pegawai;
+
+  const PegawaiUpdateForm({Key? key, required this.pegawai}) : super(key: key);
+  _PegawaiUpdateFormState createState() => _PegawaiUpdateFormState();
 }
 
-class _PegawaiFormState extends State<PegawaiForm> {
+class _PegawaiUpdateFormState extends State<PegawaiUpdateForm> {
   final _formKey = GlobalKey<FormState>();
   final _namaPegawaiCtrl = TextEditingController();
+
+  Future<Pegawai> getData() async {
+    Pegawai data = await PegawaiService().getById(widget.pegawai.id.toString());
+    setState(() {
+      if (data.namaPegawai != null) {
+        _namaPegawaiCtrl.text = data.namaPegawai;
+      }
+    });
+    return data;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Tambah Pegawai")),
+      appBar: AppBar(title: const Text("Ubah Pegawai")),
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -38,7 +56,9 @@ class _PegawaiFormState extends State<PegawaiForm> {
     return ElevatedButton(
       onPressed: () async {
         Pegawai pegawai = new Pegawai(namaPegawai: _namaPegawaiCtrl.text);
-        await PegawaiService().simpan(pegawai).then((value) {
+        String id = widget.pegawai.id.toString();
+        await PegawaiService().ubah(pegawai, id).then((value) {
+          Navigator.pop(context);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -47,7 +67,7 @@ class _PegawaiFormState extends State<PegawaiForm> {
           );
         });
       },
-      child: const Text("Simpan"),
+      child: const Text("Simpan Perubahan"),
     );
   }
 }
