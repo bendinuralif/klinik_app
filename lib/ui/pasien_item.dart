@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/ui/pasien_detail.dart';
 import '../model/pasien.dart';
-import 'pasien_detail.dart';
 
 class PasienItem extends StatelessWidget {
   final Pasien pasien;
