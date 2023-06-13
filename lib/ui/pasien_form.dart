@@ -113,10 +113,10 @@ class _PasienFormState extends State<PasienForm> {
     return ElevatedButton(
         onPressed: () async {
           Pasien pasien = new Pasien(
-              no_rm: _nIPCtrl.text,
+              nomor_rm: _nIPCtrl.text,
               nama: _namaPasienCtrl.text,
-              tanggalLahir: DateTime.parse(_tanggalLahirCtrl.text),
-              nomorTelepon: _nomorTeleponCtrl.text,
+              tanggal_lahir: DateTime.parse(_tanggalLahirCtrl.text),
+              nomor_telepon: _nomorTeleponCtrl.text,
               alamat: _emailCtrl.text);
           await PasienService().simpan(pasien).then((value) {
             Navigator.pushReplacement(

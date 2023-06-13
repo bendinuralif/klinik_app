@@ -1,33 +1,33 @@
 class Pasien {
   int? id;
-  String no_rm;
+  String nomor_rm;
   String nama;
-  DateTime tanggalLahir;
-  String nomorTelepon;
+  DateTime tanggal_lahir;
+  String nomor_telepon;
   String alamat;
 
   Pasien(
       {this.id,
-      required this.no_rm,
+      required this.nomor_rm,
       required this.nama,
-      required this.tanggalLahir,
-      required this.nomorTelepon,
+      required this.tanggal_lahir,
+      required this.nomor_telepon,
       required this.alamat});
 
   factory Pasien.fromJson(Map<String, dynamic> json) => Pasien(
         id: json["id"],
-        no_rm: json["no_rm"],
+        nomor_rm: json["nomor_rm"],
         nama: json["nama"],
-        tanggalLahir: DateTime.parse(json["tgl_lahir"]),
-        nomorTelepon: json["no_telp"],
+        tanggal_lahir: DateTime.parse(json["tanggal_lahir"]),
+        nomor_telepon: json["nomor_telepon"],
         alamat: json["alamat"],
       );
 
   Map<String, dynamic> toJson() => {
-        "no_rm": no_rm,
+        "nomor_rm": nomor_rm,
         "nama": nama,
-        "tgl_lahir": tanggalLahir.toIso8601String(),
-        "no_telp": nomorTelepon,
+        "tanggal_lahir": tanggal_lahir.toIso8601String(),
+        "nomor_telepon": nomor_telepon,
         "alamat": alamat
       };
 }

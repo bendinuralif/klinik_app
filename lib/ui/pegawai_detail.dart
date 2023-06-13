@@ -62,9 +62,9 @@ class _PegawaiDetailState extends State<PegawaiDetail> {
                         Text("${widget.pegawai.nip}"),
                         Text("${widget.pegawai.email}"),
                         Text(
-                          formatDate(widget.pegawai.tanggalLahir),
+                          formatDate(widget.pegawai.tanggal_lahir),
                         ),
-                        Text("${widget.pegawai.nomorTelepon}")
+                        Text("${widget.pegawai.nomor_telepon}")
                       ],
                     )
                   ],

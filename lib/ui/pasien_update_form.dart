@@ -14,27 +14,27 @@ class _PasienUpdateFormState extends State<PasienUpdateForm> {
   final _formKey = GlobalKey<FormState>();
   final _namaPasienCtrl = TextEditingController();
   final _nIPCtrl = TextEditingController();
-  final _tanggalLahirCtrl = TextEditingController();
-  final _nomorTeleponCtrl = TextEditingController();
+  final _tanggal_lahirCtrl = TextEditingController();
+  final _nomor_teleponCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
 
   Future<Pasien> getData() async {
     Pasien data = await PasienService().getById(widget.pasien.id.toString());
     setState(() {
-      if (data.no_rm != null) {
-        _nIPCtrl.text = data.no_rm;
+      if (data.nomor_rm != null) {
+        _nIPCtrl.text = data.nomor_rm;
       }
       if (data.nama != null) {
         _namaPasienCtrl.text = data.nama;
       }
-      if (data.tanggalLahir != null) {
+      if (data.tanggal_lahir != null) {
         final formattedDate =
-            "${data.tanggalLahir.year}-${data.tanggalLahir.month.toString().padLeft(2, '0')}-${data.tanggalLahir.day.toString().padLeft(2, '0')}";
-        _tanggalLahirCtrl.text = formattedDate;
+            "${data.tanggal_lahir.year}-${data.tanggal_lahir.month.toString().padLeft(2, '0')}-${data.tanggal_lahir.day.toString().padLeft(2, '0')}";
+        _tanggal_lahirCtrl.text = formattedDate;
       }
-      if (data.nomorTelepon != null) {
-        _nomorTeleponCtrl.text = data.nomorTelepon;
+      if (data.nomor_telepon != null) {
+        _nomor_teleponCtrl.text = data.nomor_telepon;
       }
       if (data.alamat != null) {
         _emailCtrl.text = data.alamat;
@@ -63,7 +63,7 @@ class _PasienUpdateFormState extends State<PasienUpdateForm> {
                 _fieldNamaPasien(),
                 _fieldNIP(),
                 _fieldTangalLahir(),
-                _fieldNomorTelepon(),
+                _fieldnomor_telepon(),
                 _fieldEmail(),
                 _fieldPassword(),
                 const SizedBox(height: 20),
@@ -93,7 +93,7 @@ class _PasienUpdateFormState extends State<PasienUpdateForm> {
   _fieldTangalLahir() {
     return TextFormField(
       decoration: const InputDecoration(labelText: "Tanggal Lahir"),
-      controller: _tanggalLahirCtrl,
+      controller: _tanggal_lahirCtrl,
       onTap: () {
         showDatePicker(
           context: context,
@@ -105,7 +105,7 @@ class _PasienUpdateFormState extends State<PasienUpdateForm> {
             setState(() {
               final formattedDate =
                   "${selectedDate.year}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.day.toString().padLeft(2, '0')}";
-              _tanggalLahirCtrl.text = formattedDate;
+              _tanggal_lahirCtrl.text = formattedDate;
             });
           }
         });
@@ -114,10 +114,10 @@ class _PasienUpdateFormState extends State<PasienUpdateForm> {
     );
   }
 
-  _fieldNomorTelepon() {
+  _fieldnomor_telepon() {
     return TextField(
       decoration: const InputDecoration(labelText: "Nomor Telepon"),
-      controller: _nomorTeleponCtrl,
+      controller: _nomor_teleponCtrl,
     );
   }
 
@@ -139,10 +139,10 @@ class _PasienUpdateFormState extends State<PasienUpdateForm> {
     return ElevatedButton(
       onPressed: () async {
         Pasien pasien = new Pasien(
-            no_rm: _nIPCtrl.text,
+            nomor_rm: _nIPCtrl.text,
             nama: _namaPasienCtrl.text,
-            tanggalLahir: DateTime.parse(_tanggalLahirCtrl.text),
-            nomorTelepon: _nomorTeleponCtrl.text,
+            tanggal_lahir: DateTime.parse(_tanggal_lahirCtrl.text),
+            nomor_telepon: _nomor_teleponCtrl.text,
             alamat: _emailCtrl.text);
         String id = widget.pasien.id.toString();
         await PasienService().ubah(pasien, id).then((value) {

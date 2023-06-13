@@ -115,8 +115,8 @@ class _PegawaiFormState extends State<PegawaiForm> {
           Pegawai pegawai = new Pegawai(
               nip: _nIPCtrl.text,
               nama: _namaPegawaiCtrl.text,
-              tanggalLahir: DateTime.parse(_tanggalLahirCtrl.text),
-              nomorTelepon: _nomorTeleponCtrl.text,
+              tanggal_lahir: DateTime.parse(_tanggalLahirCtrl.text),
+              nomor_telepon: _nomorTeleponCtrl.text,
               email: _emailCtrl.text,
               password: _passwordCtrl.text);
           await PegawaiService().simpan(pegawai).then((value) {

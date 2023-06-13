@@ -59,12 +59,12 @@ class _PasienDetailState extends State<PasienDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("${widget.pasien.nama}"),
-                        Text("${widget.pasien.no_rm}"),
+                        Text("${widget.pasien.nomor_rm}"),
                         Text("${widget.pasien.alamat}"),
                         Text(
-                          formatDate(widget.pasien.tanggalLahir),
+                          formatDate(widget.pasien.tanggal_lahir),
                         ),
-                        Text("${widget.pasien.nomorTelepon}")
+                        Text("${widget.pasien.nomor_telepon}")
                       ],
                     )
                   ],

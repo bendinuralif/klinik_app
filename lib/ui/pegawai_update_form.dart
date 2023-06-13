@@ -28,13 +28,13 @@ class _PegawaiUpdateFormState extends State<PegawaiUpdateForm> {
       if (data.nama != null) {
         _namaPegawaiCtrl.text = data.nama;
       }
-      if (data.tanggalLahir != null) {
+      if (data.tanggal_lahir != null) {
         final formattedDate =
-            "${data.tanggalLahir.year}-${data.tanggalLahir.month.toString().padLeft(2, '0')}-${data.tanggalLahir.day.toString().padLeft(2, '0')}";
+            "${data.tanggal_lahir.year}-${data.tanggal_lahir.month.toString().padLeft(2, '0')}-${data.tanggal_lahir.day.toString().padLeft(2, '0')}";
         _tanggalLahirCtrl.text = formattedDate;
       }
-      if (data.nomorTelepon != null) {
-        _nomorTeleponCtrl.text = data.nomorTelepon;
+      if (data.nomor_telepon != null) {
+        _nomorTeleponCtrl.text = data.nomor_telepon;
       }
       if (data.email != null) {
         _emailCtrl.text = data.email;
@@ -144,8 +144,8 @@ class _PegawaiUpdateFormState extends State<PegawaiUpdateForm> {
         Pegawai pegawai = new Pegawai(
             nip: _nIPCtrl.text,
             nama: _namaPegawaiCtrl.text,
-            tanggalLahir: DateTime.parse(_tanggalLahirCtrl.text),
-            nomorTelepon: _nomorTeleponCtrl.text,
+            tanggal_lahir: DateTime.parse(_tanggalLahirCtrl.text),
+            nomor_telepon: _nomorTeleponCtrl.text,
             email: _emailCtrl.text,
             password: _passwordCtrl.text);
         String id = widget.pegawai.id.toString();
