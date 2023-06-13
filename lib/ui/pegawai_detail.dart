@@ -7,69 +7,100 @@ import '../model/pegawai.dart';
 class PegawaiDetail extends StatefulWidget {
   final Pegawai pegawai;
 
-  const PegawaiDetail({Key? key, required this.pegawai}) : super(key: key);
+  const PegawaiDetail({super.key, required this.pegawai});
+
   @override
-  PegawaiDetailState createState() => PegawaiDetailState();
+  State<PegawaiDetail> createState() => _PegawaiDetailState();
 }
 
-class PegawaiDetailState extends State<PegawaiDetail> {
+class _PegawaiDetailState extends State<PegawaiDetail> {
   Stream<Pegawai> getData() async* {
     Pegawai data = await PegawaiService().getById(widget.pegawai.id.toString());
     yield data;
   }
 
+  String formatDate(DateTime date) {
+    String formattedDate =
+        '${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+    return formattedDate;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Detail Pegawai")),
-      body: StreamBuilder(
-        stream: getData(),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          }
-          if (snapshot.connectionState != ConnectionState.done) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (!snapshot.hasData &&
-              snapshot.connectionState == ConnectionState.done) {
-            return Text('Data Tidak Ditemukan');
-          }
-          return Column(
-            children: [
-              SizedBox(height: 20),
-              Text(
-                "Nama Pegawai : ${snapshot.data.namaPegawai}",
-                style: TextStyle(fontSize: 20),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [_tombolUbah(), _tombolHapus()],
-              )
-            ],
-          );
-        },
-      ),
+    return WillPopScope(
+        onWillPop: _onBackPressed,
+        child: Scaffold(
+            appBar: AppBar(title: Text("Detail Pegawai")),
+            body: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const SizedBox(height: 50),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(textAlign: TextAlign.left, 'Nama'),
+                          Text(textAlign: TextAlign.left, 'NIP'),
+                          Text(textAlign: TextAlign.left, 'Email'),
+                          Text(textAlign: TextAlign.left, 'Tanggal Lahir'),
+                          Text(textAlign: TextAlign.left, 'Nomor Telepon')
+                        ]),
+                    Column(children: const [
+                      Text(' : '),
+                      Text(' : '),
+                      Text(' : '),
+                      Text(' : '),
+                      Text(' : ')
+                    ]),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("${widget.pegawai.nama}"),
+                        Text("${widget.pegawai.nip}"),
+                        Text("${widget.pegawai.email}"),
+                        Text(
+                          formatDate(widget.pegawai.tanggalLahir),
+                        ),
+                        Text("${widget.pegawai.nomorTelepon}")
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(height: 50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _tombolUbah(),
+                    _tombolHapus(),
+                  ],
+                )
+              ],
+            )));
+  }
+
+  Future<bool> _onBackPressed() async {
+    // Trigger a reload of the previous page when navigating back
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => PegawaiPage()),
     );
+    return true; // Allow the back navigation
   }
 
   _tombolUbah() {
-    return StreamBuilder(
-        stream: getData(),
-        builder: (context, AsyncSnapshot snapshot) => ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            PegawaiUpdateForm(pegawai: snapshot.data)));
-              },
-              style: ElevatedButton.styleFrom(primary: Colors.green),
-              child: const Text("Ubah"),
-            ));
+    return ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      PegawaiUpdateForm(pegawai: widget.pegawai)));
+        },
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+        child: const Text("Ubah"));
   }
 
   _tombolHapus() {
@@ -82,7 +113,9 @@ class PegawaiDetailState extends State<PegawaiDetail> {
                 stream: getData(),
                 builder: (context, AsyncSnapshot snapshot) => ElevatedButton(
                       onPressed: () async {
-                        await PegawaiService().hapus(snapshot.data).then((value) {
+                        await PegawaiService()
+                            .hapus(snapshot.data)
+                            .then((value) {
                           Navigator.pop(context);
                           Navigator.pushReplacement(
                               context,

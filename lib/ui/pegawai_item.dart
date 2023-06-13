@@ -11,7 +11,7 @@ class PegawaiItem extends StatelessWidget {
     return GestureDetector(
       child: Card(
         child: ListTile(
-          title: Text("${pegawai.namaPegawai}"),
+          title: Text("${pegawai.nama}"),
         ),
       ),
       onTap: () {
