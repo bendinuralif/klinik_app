@@ -44,7 +44,7 @@ class _PasienDetailState extends State<PasienDetail> {
                         children: const [
                           Text(textAlign: TextAlign.left, 'Nama'),
                           Text(textAlign: TextAlign.left, 'NO'),
-                          Text(textAlign: TextAlign.left, 'Email'),
+                          Text(textAlign: TextAlign.left, 'Alamat'),
                           Text(textAlign: TextAlign.left, 'Tanggal Lahir'),
                           Text(textAlign: TextAlign.left, 'Nomor Telepon')
                         ]),

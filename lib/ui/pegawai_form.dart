@@ -33,7 +33,6 @@ class _PegawaiFormState extends State<PegawaiForm> {
                 _fieldTangalLahir(),
                 _fieldNomorTelepon(),
                 _fieldEmail(),
-                _fieldPassword(),
                 const SizedBox(height: 20),
                 _tombolSimpan(),
               ],
@@ -102,13 +101,6 @@ class _PegawaiFormState extends State<PegawaiForm> {
     );
   }
 
-  _fieldPassword() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Password"),
-      controller: _passwordCtrl,
-    );
-  }
-
   _tombolSimpan() {
     return ElevatedButton(
         onPressed: () async {
@@ -117,8 +109,7 @@ class _PegawaiFormState extends State<PegawaiForm> {
               nama: _namaPegawaiCtrl.text,
               tanggal_lahir: DateTime.parse(_tanggalLahirCtrl.text),
               nomor_telepon: _nomorTeleponCtrl.text,
-              email: _emailCtrl.text,
-              password: _passwordCtrl.text);
+              email: _emailCtrl.text);
           await PegawaiService().simpan(pegawai).then((value) {
             Navigator.pushReplacement(
               context,

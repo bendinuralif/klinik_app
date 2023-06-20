@@ -15,7 +15,6 @@ class _PasienFormState extends State<PasienForm> {
   final _tanggalLahirCtrl = TextEditingController();
   final _nomorTeleponCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
-  final _passwordCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,6 @@ class _PasienFormState extends State<PasienForm> {
                 _fieldTangalLahir(),
                 _fieldNomorTelepon(),
                 _fieldEmail(),
-                _fieldPassword(),
                 const SizedBox(height: 20),
                 _tombolSimpan(),
               ],
@@ -97,15 +95,8 @@ class _PasienFormState extends State<PasienForm> {
 
   _fieldEmail() {
     return TextField(
-      decoration: const InputDecoration(labelText: "Email"),
+      decoration: const InputDecoration(labelText: "Alamat"),
       controller: _emailCtrl,
-    );
-  }
-
-  _fieldPassword() {
-    return TextField(
-      decoration: const InputDecoration(labelText: "Password"),
-      controller: _passwordCtrl,
     );
   }
 
